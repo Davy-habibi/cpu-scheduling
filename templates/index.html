@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPU Scheduling Simulator</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f5f7fa;
+            margin: 40px;
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        input, select {
+            margin: 5px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px 12px;
+        }
+
+        /* ✅ GANTT CHART */
+        .gantt-container {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .block {
+            padding: 15px;
+            margin-right: 2px;
+            background-color: #4caf50;
+            color: white;
+            font-weight: bold;
+        }
+
+        .time {
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h3>nama : mohammad davy habibi</h3>
+    <h4>Nim  : 41525010036</h4>
+<h1>CPU Scheduling Simulator</h1>
+
+<form method="POST">
+
+    Jumlah Proses:
+    <input type="number" name="n" required><br><br>
+
+    Pilih Algoritma:
+    <select name="algorithm">
+        <option value="fcfs">FCFS</option>
+        <option value="sjf_np">SJF Non Preemptive</option>
+        <option value="sjf_p">SJF Preemptive</option>
+        <option value="rr">Round Robin</option>
+    </select><br><br>
+
+    Time Quantum:
+    <input type="number" name="quantum"><br><br>
+
+    <h3>Input Proses (maksimal 5 dulu)</h3>
+
+    {% for i in range(5) %}
+        P{{i+1}} AT:
+        <input name="at{{i}}" type="number">
+        BT:
+        <input name="bt{{i}}" type="number"><br>
+    {% endfor %}
+
+    <br>
+    <button type="submit">Proses</button>
+</form>
+
+<hr>
+
+{% if result %}
+<h2>Gantt Chart</h2>
+
+<div class="gantt-container">
+    {% for g in gantt %}
+        <div class="block">
+            {{g[0]}} <br>
+            <div class="time">{{g[1]}} - {{g[2]}}</div>
+        </div>
+    {% endfor %}
+</div>
+
+<h2>Hasil</h2>
+
+<table>
+<tr>
+<th>Process</th>
+<th>AT</th>
+<th>BT</th>
+<th>WT</th>
+<th>TT</th>
+</tr>
+
+{% for p in result %}
+<tr>
+<td>{{p.id}}</td>
+<td>{{p.at}}</td>
+<td>{{p.bt}}</td>
+<td>{{p.wt}}</td>
+<td>{{p.tt}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<p>Total WT: {{total_wt}}</p>
+<p>Total TT: {{total_tt}}</p>
+
+{% endif %}
+
+</body>
+</html>
+
