@@ -8,8 +8,7 @@ def fcfs(processes):
     processes.sort(key=lambda x: x['at'])
     current_time = 0
     gantt = []
-    total_wt = 0
-    total_tt = 0
+    total_wt = total_tt = 0
 
     for p in processes:
         if current_time < p['at']:
@@ -29,12 +28,13 @@ def fcfs(processes):
 
     return processes, gantt, total_wt, total_tt
 
+
 # ================= SJF NON PREEMPTIVE =================
 def sjf_np(processes):
     n = len(processes)
     completed = 0
     current_time = 0
-    visited = [False]*n
+    visited = [False] * n
     gantt = []
     total_wt = total_tt = 0
 
@@ -69,6 +69,7 @@ def sjf_np(processes):
         completed += 1
 
     return processes, gantt, total_wt, total_tt
+
 
 # ================= SJF PREEMPTIVE =================
 def sjf_p(processes):
@@ -113,6 +114,7 @@ def sjf_p(processes):
             total_tt += processes[idx]['tt']
 
     return processes, gantt, total_wt, total_tt
+
 
 # ================= ROUND ROBIN =================
 def round_robin(processes, q):
@@ -161,7 +163,7 @@ def round_robin(processes, q):
     return processes, gantt, total_wt, total_tt
 
 
-# ================= MAIN ROUTE =================
+# ================= ROUTE =================
 @app.route('/', methods=['GET', 'POST'])
 def index():
     result = []
@@ -203,16 +205,12 @@ def index():
         result=result,
         gantt=gantt,
         total_wt=total_wt,
-        total_tt=total_tt,
+        total_tt=total_tt
     )
 
 
-@app.route('/index.html', methods=['GET'])
+@app.route('/index.html')
 def index_html():
     return index()
 
-import os
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
-    app.run(host="0.0.0.0", port=port)
+# ✅ STOP DI SINI — TIDAK ADA app.run()
