@@ -205,7 +205,7 @@ def index():
         result=result,
         gantt=gantt,
         total_wt=total_wt,
-        total_tt=total_tt
+        total_tt=total_tt,
     )
 
 
@@ -213,4 +213,4 @@ def index():
 def index_html():
     return index()
 
-# ✅ STOP DI SINI — TIDAK ADA app.run()
+# ✅ STOP — TIDAK ADA app.run()
